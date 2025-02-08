@@ -46,15 +46,6 @@ export default function RootLayout({
           <link rel="icon" href="/favicon.png" type="image/png" />
         </head>
         <body className={cn("font-sans antialiased text-white", ibmPlexSans.variable)}>
-          <header className="flex justify-end items-center p-4 gap-4 h-16 shadow-md text-gray-500">
-            <SignedOut>
-              <SignInButton mode="modal" />
-              <SignUpButton mode="modal" />
-            </SignedOut>
-            <SignedIn>
-              <UserButton />
-            </SignedIn>
-          </header>
           {children}
         </body>
       </html>

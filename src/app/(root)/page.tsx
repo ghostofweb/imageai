@@ -3,12 +3,9 @@ import React from 'react'
 
 const Home = () => {
   return (
-    <div>
-      <p>
-        Home
-      </p>
-      <SignOutButton redirectUrl='/'/>
-    </div>
+   <div>
+    hell
+   </div>
   )
 }
 
