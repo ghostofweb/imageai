@@ -22,7 +22,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={cn("font-IBMPlex antialiased",ibmPlexSans.variable)}>
+      <head>
+        <meta charSet="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      </head>
+      <body className={cn("font-sans antialiased", ibmPlexSans.variable)}>
         {children}
       </body>
     </html>
