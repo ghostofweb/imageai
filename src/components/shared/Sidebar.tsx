@@ -22,8 +22,7 @@ const Sidebar = () => {
             initial={{ x: -250, opacity: 0 }}
             animate={{ x: 0, opacity: 1 }}
             transition={{ type: 'spring', stiffness: 80, damping: 15 }}
-            className="hidden md:flex w-64 min-h-screen bg-gray-100 p-6 shadow-xl flex-col fixed top-0 left-0"
-
+                        className="hidden sm:flex w-64 min-h-screen bg-gray-100 p-6 shadow-xl flex-col fixed top-0 left-0"
         >
             {/* Logo Section */}
             <Link href="/" className="flex justify-center mb-6">
