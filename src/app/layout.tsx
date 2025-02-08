@@ -39,14 +39,14 @@ export default function RootLayout({
             logoImageUrl: '/favicon.png'
           }
         }}>
-      <html lang="en" className="dark">
+      <html lang="en">
         <head>
           <meta charSet="UTF-8" />
           <meta name="viewport" content="width=device-width, initial-scale=1.0" />
           <link rel="icon" href="/favicon.png" type="image/png" />
         </head>
-        <body className={cn("font-sans antialiased bg-gray-900 text-white", ibmPlexSans.variable)}>
-          <header className="flex justify-end items-center p-4 gap-4 h-16 bg-gray-800 shadow-md">
+        <body className={cn("font-sans antialiased text-white", ibmPlexSans.variable)}>
+          <header className="flex justify-end items-center p-4 gap-4 h-16 shadow-md text-gray-500">
             <SignedOut>
               <SignInButton mode="modal" />
               <SignUpButton mode="modal" />
