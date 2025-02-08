@@ -31,11 +31,19 @@ export default function RootLayout({
 }>) {
   return (
     <ClerkProvider
-    appearance={{baseTheme:dark}}>
+      appearance={
+        {
+          baseTheme: dark,
+          variables: { colorPrimary: '#624cf5' },
+          layout:{
+            logoImageUrl: '/favicon.png'
+          }
+        }}>
       <html lang="en" className="dark">
         <head>
           <meta charSet="UTF-8" />
           <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+          <link rel="icon" href="/favicon.png" type="image/png" />
         </head>
         <body className={cn("font-sans antialiased bg-gray-900 text-white", ibmPlexSans.variable)}>
           <header className="flex justify-end items-center p-4 gap-4 h-16 bg-gray-800 shadow-md">
