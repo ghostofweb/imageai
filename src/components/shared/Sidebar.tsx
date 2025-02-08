@@ -26,7 +26,7 @@ const Sidebar = () => {
         >
             {/* Logo Section */}
             <Link href="/" className="flex justify-center mb-6">
-                <Image src="/favicon.png" alt="Logo" width={100} height={24} priority />
+                <Image src="/favicon.png" alt="Logo" width={180} height={24} priority />
             </Link>
 
             {isClient && (
