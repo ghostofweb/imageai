@@ -1,6 +1,5 @@
 import { Schema, model, models, Document } from "mongoose";
 
-// Define TypeScript Interface for User
 export interface IUser extends Document {
   clerkId: string;
   email: string;
