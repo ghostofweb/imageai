@@ -38,6 +38,6 @@ const ImageSchema = new Schema<Image>(
     },
     { timestamps: true } 
 );
-const Image = models?.Image || model<Image>("Image",ImageSchema)
+const ImageModel = models?.Image || model<Image>("Image",ImageSchema)
 
-export default Image;
+export default ImageModel;
