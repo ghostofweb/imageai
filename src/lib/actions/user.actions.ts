@@ -10,9 +10,7 @@ import { connectDB } from "../database/connectDB";
 export async function createUser(user: CreateUserParams) {
   try {
     await connectDB();
-
     const newUser = await UserModel.create(user);
-
     return JSON.parse(JSON.stringify(newUser));
   } catch (error) {
     handleError(error);
