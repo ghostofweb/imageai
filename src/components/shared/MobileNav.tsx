@@ -13,7 +13,7 @@ import { navLinks } from '@/constants';
 import { motion } from 'framer-motion';
 import { usePathname } from 'next/navigation';
 import { X } from 'lucide-react'; // Import black close icon
-import { Button } from '../ui/button';
+import { Button } from '../ui/Button2';
 
 const MobileNav = () => {
     const pathname = usePathname();

@@ -7,7 +7,8 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { motion } from 'framer-motion';
-import { Button } from '../ui/button';
+import { Button } from '../ui/Button2';
+
 
 const Sidebar = () => {
     const pathname = usePathname(); // ✅ Get current path
