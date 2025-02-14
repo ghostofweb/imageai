@@ -1,30 +1,38 @@
 import mongoose, { Mongoose } from "mongoose";
 
-const MONGODB_URL: any = process.env.MONGODB_URL;
+const MONGODB_URL: string | undefined = process.env.MONGODB_URL;
 
 interface MongooseConnection {
-    conn: Mongoose | null;
-    promise: Promise<Mongoose> | null;
+  conn: Mongoose | null;
+  promise: Promise<Mongoose> | null;
 }
 
-let cached: MongooseConnection = (global as any).mongoose;
+// Fixing the global cache typing
+declare global {
+  // Prevents TypeScript from thinking this is an error
+  var mongoose: MongooseConnection | undefined;
+}
+
+let cached: MongooseConnection = global.mongoose || { conn: null, promise: null };
 
 if (!cached) {
-    cached = (global as any).mongoose = { conn: null, promise: null };
+  cached = global.mongoose = { conn: null, promise: null };
 }
 
-export const connectDB = async () => {
-    if (cached.conn) {
-        return cached.conn;
-    }
+export const connectDB = async (): Promise<Mongoose> => {
+  if (cached.conn) {
+    return cached.conn;
+  }
 
-    if (!MONGODB_URL) throw new Error("Missing MONGODB_URL");
+  if (!MONGODB_URL) throw new Error("Missing MONGODB_URL");
 
-    cached.promise = cached.promise || mongoose.connect(MONGODB_URL, {
-        dbName: "imageai",
-        bufferCommands: false,
+  cached.promise =
+    cached.promise ||
+    mongoose.connect(MONGODB_URL, {
+      dbName: "imageai",
+      bufferCommands: false,
     });
 
-    cached.conn = await cached.promise;
-    return cached.conn;
+  cached.conn = await cached.promise;
+  return cached.conn;
 };
