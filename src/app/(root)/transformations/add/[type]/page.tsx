@@ -4,22 +4,21 @@ import { transformationTypes } from '@/constants';
 import { getUserById } from '@/lib/actions/user.actions';
 import { auth } from '@clerk/nextjs/server';
 import { redirect } from 'next/navigation';
-import { FC } from 'react';
+import React from 'react';
 
 type TransformationType = keyof typeof transformationTypes;
 
 interface AddTransformationTypePageProps {
-  params: {
-    type: TransformationType;
-  };
+  params: { type: TransformationType };
 }
 
-const AddTransformationTypePage: FC<AddTransformationTypePageProps> = async ({ params }) => {
-  const { type } = params; // Access params directly
+export default async function AddTransformationTypePage({
+  params,
+}: AddTransformationTypePageProps) {
+  const { type } = params;
 
-  const { userId } = await auth(); // Get userId from auth
+  const { userId } = await auth(); 
 
-  // Handle the case where userId might be null
   if (!userId) {
     redirect('/sign-in');
   }
@@ -35,13 +34,11 @@ const AddTransformationTypePage: FC<AddTransformationTypePageProps> = async ({ p
       />
       <TransformationForm
         action="Add"
-        userId={user._id}  // Pass only the userId, not the entire user object
-        type={transformation.type as TransformationType}
+        userId={user._id}
+        type={transformation.type}
         creditBalance={user.creditBalance}
-        data={null} // Pass null for the data prop if you're creating a new transformation
+        data={null}
       />
     </>
   );
-};
-
-export default AddTransformationTypePage;
+}
