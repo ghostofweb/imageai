@@ -14,7 +14,7 @@ export default async function AddTransformationTypePage({
 }: {
   params: { type: TransformationType };
 } & PageProps) {
-  const { type } = params;
+  const { type } = await params;
   const { userId } = await auth();
 
   if (!userId) redirect('/sign-in');
