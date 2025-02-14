@@ -4,16 +4,17 @@ import { transformationTypes } from '@/constants';
 import { getUserById } from '@/lib/actions/user.actions';
 import { auth } from '@clerk/nextjs/server';
 import { redirect } from 'next/navigation';
-import React from 'react';
+import { FC } from 'react';
 
 type TransformationType = keyof typeof transformationTypes;
 
-// Inline type definition for page props
-export default async function AddTransformationTypePage({
-  params,
-}: {
-  params: { type: TransformationType };
-}) {
+interface AddTransformationTypePageProps {
+  params: {
+    type: TransformationType;
+  };
+}
+
+const AddTransformationTypePage: FC<AddTransformationTypePageProps> = async ({ params }) => {
   const { type } = params; // Access params directly
 
   const { userId } = await auth(); // Get userId from auth
@@ -41,4 +42,6 @@ export default async function AddTransformationTypePage({
       />
     </>
   );
-}
+};
+
+export default AddTransformationTypePage;
