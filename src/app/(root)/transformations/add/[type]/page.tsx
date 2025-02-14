@@ -14,14 +14,15 @@ interface SearchParamProps {
   };
 }
 
+// Note: Change the function to be `async` and receive `SearchParamProps` correctly
 const AddTransformationTypePage = async ({ params }: SearchParamProps) => {
-  const { type } = await params;
+  const { type } = params; // Access params directly, no need for `await`
 
   const { userId } = await auth(); // Get userId from auth
 
   // Handle the case where userId might be null
   if (!userId) {
-    redirect('/sign-in')
+    redirect('/sign-in');
   }
 
   const transformation = transformationTypes[type];
@@ -40,7 +41,6 @@ const AddTransformationTypePage = async ({ params }: SearchParamProps) => {
         creditBalance={user.creditBalance}
         data={null} // Pass null for the data prop if you're creating a new transformation
       />
-
     </>
   );
 };
