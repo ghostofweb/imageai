@@ -8,15 +8,13 @@ import React from 'react';
 
 type TransformationType = keyof typeof transformationTypes;
 
-interface SearchParamProps {
-  params: {
-    type: TransformationType;
-  };
-}
-
-// Note: Change the function to be `async` and receive `SearchParamProps` correctly
-const AddTransformationTypePage = async ({ params }: SearchParamProps) => {
-  const { type } = params; // Access params directly, no need for `await`
+// Inline type definition for page props
+export default async function AddTransformationTypePage({
+  params,
+}: {
+  params: { type: TransformationType };
+}) {
+  const { type } = params; // Access params directly
 
   const { userId } = await auth(); // Get userId from auth
 
@@ -37,12 +35,10 @@ const AddTransformationTypePage = async ({ params }: SearchParamProps) => {
       <TransformationForm
         action="Add"
         userId={user._id}  // Pass only the userId, not the entire user object
-        type={transformation.type as TransformationTypeKey}
+        type={transformation.type as TransformationType}
         creditBalance={user.creditBalance}
         data={null} // Pass null for the data prop if you're creating a new transformation
       />
     </>
   );
-};
-
-export default AddTransformationTypePage;
+}
