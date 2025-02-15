@@ -112,7 +112,7 @@ const TransformationForm = ({
   },1000)
   return onChangeField(value)
   }
-  // TODO: Implement the transformation Handler
+  // TODO: Implement the updateCredits Handler
   const onTranformHandler = async ()=>{
     setisTranforming(true)
     deepMergeObjects(newTransformation,tranformationConfig)
