@@ -23,7 +23,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select"
-import { AspectRatioKey } from '@/lib/utils'
+import { AspectRatioKey, debounce } from '@/lib/utils'
 
 type Transformations = {
   title: string;
@@ -100,8 +100,15 @@ const TransformationForm = ({
   };
 
   const onInputChangeHandler = (fieldName:string,value:string,type:string,onChange:(value:string)=>void) => {
+  debounce(()=>{
+    setNewTransformation((prev:any)=>({
+      ...prev,
+      [type]:{
+        ...prev?.[type]
+      }
+    }))
+  },1000)
   }
-
   const onTranformHandler = ()=>{
 
   }
