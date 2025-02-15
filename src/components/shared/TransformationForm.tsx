@@ -23,7 +23,8 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select"
-import { AspectRatioKey, debounce } from '@/lib/utils'
+import { AspectRatioKey, debounce, deepMergeObjects } from '@/lib/utils'
+import { updateCredits } from '@/lib/actions/user.actions'
 
 type Transformations = {
   title: string;
@@ -111,8 +112,15 @@ const TransformationForm = ({
   },1000)
   return onChangeField(value)
   }
+  // TODO: Implement the transformation Handler
   const onTranformHandler = async ()=>{
+    setisTranforming(true)
+    deepMergeObjects(newTransformation,tranformationConfig)
+    setNewTransformation(null)
 
+    startTransition(async () => {
+      // await updateCredits(userId,creditBalance)
+    })
   }
 
   return (
