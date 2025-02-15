@@ -1,5 +1,5 @@
 "use client"
-import React, { useState } from 'react'
+import React, { useState, useTransition } from 'react'
 import { z } from "zod"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm, SubmitHandler } from "react-hook-form"
@@ -66,7 +66,7 @@ const TransformationForm = ({
   const [isSubmitting, setisSubmitting] = useState(false)
   const [isTranforming, setisTranforming] = useState(false)
   const [tranformationConfig, settranformationConfig] = useState(config)
-
+  const [isPending,startTransition] = useTransition()
   const initialValues = data && action === 'Update'
     ? {
         title: data.title,
@@ -99,17 +99,19 @@ const TransformationForm = ({
     return onChangeField(value)
   };
 
-  const onInputChangeHandler = (fieldName:string,value:string,type:string,onChange:(value:string)=>void) => {
+  const onInputChangeHandler = (fieldName:string,value:string,type:string,onChangeField:(value:string)=>void) => {
   debounce(()=>{
     setNewTransformation((prev:any)=>({
       ...prev,
       [type]:{
-        ...prev?.[type]
+        ...prev?.[type],
+        [fieldName === 'prompt' ? 'prompt' : 'to']:value
       }
     }))
   },1000)
+  return onChangeField(value)
   }
-  const onTranformHandler = ()=>{
+  const onTranformHandler = async ()=>{
 
   }
 
