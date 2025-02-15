@@ -25,13 +25,13 @@ import {
 } from "@/components/ui/select"
 import { AspectRatioKey } from '@/lib/utils'
 
-// Define a type for transformation data (you may adjust as needed)
 type Transformations = {
   title: string;
   aspectRatio?: string;
   color?: string;
   prompt?: string;
   publicId: string;
+  config?: { restore?: boolean; removeBackground?: boolean; fillBackground?: boolean; remove?: { prompt: string; removeShadow: boolean; multiple: boolean }; recolor?: { prompt: string; to: string; multiple: boolean } };
 };
 
 // Define form schema using Zod
@@ -61,7 +61,8 @@ const TransformationForm = ({
   // Now 'type' is correctly typed, so we can index transformationTypes safely.
   const transformationType = transformationTypes[type];
   const [image, setImage] = useState(data);
-  const [newTransformation, setNewTransformation] = useState<Transformations | null>(null);
+  const [newTransformation, setNewTransformation] = useState<Transformations["config"] | null>(null);
+
   const [isSubmitting, setisSubmitting] = useState(false)
   const [isTranforming, setisTranforming] = useState(false)
   const [tranformationConfig, settranformationConfig] = useState(config)
@@ -87,15 +88,23 @@ const TransformationForm = ({
 
   // Optional select field handler (if needed)
   const onSelectFieldHandler = (value: string, onChangeField: (value: string) => void) => {
-    // Handle select change here
+    const imageSize = aspectRatioOptions[value as AspectRatioKey]
+    setImage((prevState:any)=>({
+      ...prevState,
+      aspectRatio:imageSize.aspectRatio,
+      width:imageSize.width,
+      height: imageSize.height
+    }))
+    setNewTransformation(transformationType.config);   
+    return onChangeField(value)
   };
 
   const onInputChangeHandler = (fieldName:string,value:string,type:string,onChange:(value:string)=>void) => {
   }
 
-  const onTranformHandler = ()=>[
+  const onTranformHandler = ()=>{
 
-  ]
+  }
 
   return (
     <div>
