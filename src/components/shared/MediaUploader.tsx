@@ -1,7 +1,6 @@
 'use client'
 import { useToast } from '@/hooks/use-toast'
 import React from 'react'
-import { Button } from '../ui/Button2'
 import { CldImage, CldUploadWidget } from 'next-cloudinary'
 import Image from 'next/image'
 import { dataUrl, getImageSize } from '@/lib/utils'

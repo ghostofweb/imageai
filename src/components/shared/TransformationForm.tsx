@@ -26,6 +26,7 @@ import {
 import { AspectRatioKey, debounce, deepMergeObjects } from '@/lib/utils'
 import { updateCredits } from '@/lib/actions/user.actions'
 import MediaUploader from './MediaUploader'
+import TransformedImage from './TransformedImage'
 
 type Transformations = {
   title: string;
@@ -67,7 +68,7 @@ const TransformationForm = ({
 
   const [isSubmitting, setisSubmitting] = useState(false)
   const [isTranforming, setisTranforming] = useState(false)
-  const [tranformationConfig, settranformationConfig] = useState(config)
+  const [transformationConfig, settransformationConfig] = useState(config)
   const [isPending,startTransition] = useTransition()
   const initialValues = data && action === 'Update'
     ? {
@@ -116,7 +117,7 @@ const TransformationForm = ({
   // TODO: Implement the updateCredits Handler
   const onTranformHandler = async ()=>{
     setisTranforming(true)
-    deepMergeObjects(newTransformation,tranformationConfig)
+    deepMergeObjects(newTransformation,transformationConfig)
     setNewTransformation(null)
 
     startTransition(async () => {
@@ -213,6 +214,15 @@ const TransformationForm = ({
             type={type}
             />
           )}
+          />
+
+          <TransformedImage
+          image={image}
+          type={type}
+          title={form.getValues().title}
+          isTranforming={isTranforming}
+          setIsTransforming={setisTranforming}
+          transformationConfig={transformationConfig}
           />
           </div>
           <div className='flex flex-col gap-4'>
