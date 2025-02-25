@@ -29,7 +29,9 @@ import MediaUploader from './MediaUploader'
 import TransformedImage from './TransformedImage'
 import { getCldImageUrl } from 'next-cloudinary'
 import { addImage, updateImage } from '@/lib/actions/image.actions'
-import { useRouter } from 'next/router'
+import { useRouter } from 'next/navigation'
+import { set } from 'mongoose'
+
 
 type Transformations = {
   title: string;
@@ -132,17 +134,14 @@ const TransformationForm = ({
         const updatedImage = await updateImage({image:{...imageData,_id:data._id},userId,path:`/transformation/${data._id}`})
 
         if(updatedImage){
-          form.reset()
-          setImage(data)
           router.push(`/transformation/${updatedImage._id}`)
-
         }
       } catch (error) {
         console.error(error)
       }
     }
   }
-  
+  setisSubmitting(false)
  }
 
   // Optional select field handler (if needed)
