@@ -1,7 +1,5 @@
 "use server";
-
 import { revalidatePath } from "next/cache";
-
 import { handleError } from "../utils";
 import UserModel from "@/models/User.model";
 import { connectDB } from "../database/connectDB";
@@ -75,7 +73,6 @@ export async function deleteUser(clerkId: string) {
 export async function updateCredits(userId: string, creditFee: number) {
   try {
     await connectDB();
-
     const updatedUserCredits = await UserModel.findOneAndUpdate(
       { _id: userId },
       { $inc: { creditBalance: creditFee }},

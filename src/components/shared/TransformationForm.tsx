@@ -86,7 +86,7 @@ const TransformationForm = ({
   });
 
   const onSubmit: SubmitHandler<FormValues> = (data) => {
-    console.log(data);  // Handle form submission here
+    
   };
 
   // Optional select field handler (if needed)
@@ -121,7 +121,7 @@ const TransformationForm = ({
     setNewTransformation(null)
 
     startTransition(async () => {
-      // await updateCredits(userId,creditBalance)
+      await updateCredits(userId,-1)
     })
   }
 
@@ -220,7 +220,7 @@ const TransformationForm = ({
           image={image}
           type={type}
           title={form.getValues().title}
-          isTranforming={isTranforming}
+          isTransforming={isTranforming}
           setIsTransforming={setisTranforming}
           transformationConfig={transformationConfig}
           />
