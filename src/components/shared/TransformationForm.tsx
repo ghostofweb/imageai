@@ -28,6 +28,7 @@ import { updateCredits } from '@/lib/actions/user.actions'
 import MediaUploader from './MediaUploader'
 import TransformedImage from './TransformedImage'
 import { getCldImageUrl } from 'next-cloudinary'
+import { addImage } from '@/lib/actions/image.actions'
 
 type Transformations = {
   title: string;
@@ -86,7 +87,7 @@ const TransformationForm = ({
     defaultValues: initialValues,
   });
 
- function onSubmit(values:z.infer<typeof formSchema>){
+  async function onSubmit(values:z.infer<typeof formSchema>){
   setisSubmitting(true)
   if(data || image){
     const transformationUrl = getCldImageUrl({
@@ -103,11 +104,19 @@ const TransformationForm = ({
       width: image?.width,
       height: image?.height,
       config : transformationConfig,
-      secureUrl:image?.secureUrl,
-      transformationUrl,
+      secureURL:image?.secureUrl,
+      transformationURL:transformationUrl,
       aspectRatio: values.aspectRatio,
       prompt: values.prompt,
       color: values.color
+    }
+    if(action === 'Add'){
+      // Add Image
+      try {
+        const newImage = await addImage({image:imageData,userId,path:'/'})
+      } catch (error) {
+        console.error(error)
+      }
     }
   }
   
