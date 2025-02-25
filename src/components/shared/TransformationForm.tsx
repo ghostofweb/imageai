@@ -27,6 +27,7 @@ import { AspectRatioKey, debounce, deepMergeObjects } from '@/lib/utils'
 import { updateCredits } from '@/lib/actions/user.actions'
 import MediaUploader from './MediaUploader'
 import TransformedImage from './TransformedImage'
+import { getCldImageUrl } from 'next-cloudinary'
 
 type Transformations = {
   title: string;
@@ -85,9 +86,32 @@ const TransformationForm = ({
     defaultValues: initialValues,
   });
 
-  const onSubmit: SubmitHandler<FormValues> = (data) => {
-    
-  };
+ function onSubmit(values:z.infer<typeof formSchema>){
+  setisSubmitting(true)
+  if(data || image){
+    const transformationUrl = getCldImageUrl({
+      width:image?.width,
+      height:image?.height,
+      src:image?.publicId,
+      ...transformationConfig
+    })
+
+    const imageData = {
+      title:values.title,
+      publicId: image?.publicId,
+      transformationType : type,
+      width: image?.width,
+      height: image?.height,
+      config : transformationConfig,
+      secureUrl:image?.secureUrl,
+      transformationUrl,
+      aspectRatio: values.aspectRatio,
+      prompt: values.prompt,
+      color: values.color
+    }
+  }
+  
+ }
 
   // Optional select field handler (if needed)
   const onSelectFieldHandler = (value: string, onChangeField: (value: string) => void) => {
