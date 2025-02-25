@@ -28,7 +28,8 @@ import { updateCredits } from '@/lib/actions/user.actions'
 import MediaUploader from './MediaUploader'
 import TransformedImage from './TransformedImage'
 import { getCldImageUrl } from 'next-cloudinary'
-import { addImage } from '@/lib/actions/image.actions'
+import { addImage, updateImage } from '@/lib/actions/image.actions'
+import { useRouter } from 'next/router'
 
 type Transformations = {
   title: string;
@@ -67,7 +68,7 @@ const TransformationForm = ({
   const transformationType = transformationTypes[type];
   const [image, setImage] = useState(data);
   const [newTransformation, setNewTransformation] = useState<Transformations["config"] | null>(null);
-
+  const router = useRouter()
   const [isSubmitting, setisSubmitting] = useState(false)
   const [isTranforming, setisTranforming] = useState(false)
   const [transformationConfig, settransformationConfig] = useState(config)
@@ -114,6 +115,27 @@ const TransformationForm = ({
       // Add Image
       try {
         const newImage = await addImage({image:imageData,userId,path:'/'})
+        if(newImage){
+          form.reset()
+          setImage(data)
+          router.push(`/transformation/${newImage._id}`)
+
+        }
+      } catch (error) {
+        console.error(error)
+      }
+    }
+
+    if(action === 'Update'){
+      // Add Image
+      try {
+        const newImage = await updateImage({image:{...imageData,_id:data._id},userId,path:'/'})
+        if(newImage){
+          form.reset()
+          setImage(data)
+          router.push(`/transformation/${newImage._id}`)
+
+        }
       } catch (error) {
         console.error(error)
       }
