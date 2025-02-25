@@ -170,15 +170,19 @@ const TransformationForm = ({
   return onChangeField(value)
   }
   // TODO: Implement the updateCredits Handler
-  const onTranformHandler = async ()=>{
+  const onTranformHandler = async () => {
     setisTranforming(true)
-    deepMergeObjects(newTransformation,transformationConfig)
+    // Merge newTransformation into the existing config
+    const mergedConfig = deepMergeObjects(newTransformation, transformationConfig)
+    // Now update the state so React re-renders with the new config
+    settransformationConfig(mergedConfig)
     setNewTransformation(null)
-
+    
     startTransition(async () => {
-      await updateCredits(userId,-1)
+      await updateCredits(userId, -1)
     })
   }
+  
 
   return (
     <div>

@@ -4,7 +4,7 @@ interface Image extends Document {
     title: string;
     transformationType: string;
     publicId: string;
-    secureUrl: string;
+    secureURL: string;
     width?: number;
     height?: number;
     config?: object;
@@ -26,7 +26,7 @@ const ImageSchema = new Schema<Image>(
         title: { type: String, required: true },
         transformationType: { type: String, required: true },
         publicId: { type: String, required: true },
-        secureUrl: { type: String, required: true }, 
+        secureURL: { type: String, required: true }, 
         width: { type: Number },
         height: { type: Number },
         config: { type: Object, default: {} },
