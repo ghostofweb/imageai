@@ -1,6 +1,6 @@
 import { Schema, Document, model, models } from "mongoose";
 
-interface Image extends Document {
+export interface IImage extends Document {
     title: string;
     transformationType: string;
     publicId: string;
@@ -21,7 +21,7 @@ interface Image extends Document {
     updatedAt: Date;
 }
 
-const ImageSchema = new Schema<Image>(
+const ImageSchema = new Schema<IImage>(
     {
         title: { type: String, required: true },
         transformationType: { type: String, required: true },
@@ -38,6 +38,6 @@ const ImageSchema = new Schema<Image>(
     },
     { timestamps: true } 
 );
-const ImageModel = models?.Image || model<Image>("Image",ImageSchema)
+const ImageModel = models?.Image || model<IImage>("Image",ImageSchema)
 
 export default ImageModel;

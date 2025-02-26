@@ -4,7 +4,7 @@ import { revalidatePath } from "next/cache";
 import { connectDB } from "../database/connectDB";
 import { handleError } from "../utils"
 import UserModel from "@/models/User.model";
-import ImageModel from "@/models/image.mode";
+import ImageModel from "@/models/image.model";
 import { redirect } from "next/navigation";
 
 const populateUser = (query:any) => query.populate({

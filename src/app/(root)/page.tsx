@@ -15,8 +15,8 @@ const Home = () => {
       >
         <li className='flex-center w-fit rounded-full bg-white p-4'>
           <Image src={link.icon} alt='image' width={24} height={24} />
-          <p className='pl-4'>{link.label}</p>
         </li>
+          <p className='p-14-medium text-center text-white'>{link.label}</p>
       </Link>
     ))}
       </ul>
