@@ -6,20 +6,12 @@ import { Collection } from "@/components/shared/Collection";
 import Header from "@/components/shared/Header";
 import { getUserImages } from "@/lib/actions/image.actions";
 import { getUserById } from "@/lib/actions/user.actions";
+import { PageProps } from "../../../../.next/types/app/layout";
 
 // Define the expected props including both params and searchParams.
-type PageProps = {
-  params: {
-    id: string;
-    type: TransformationTypeKey;
-  };
-  searchParams: {
-    page?: string;
-  };
-};
 
 const UpdateTransformationPage = async ({ params, searchParams }: PageProps) => {
-  const page = Number(searchParams.page) || 1;
+  const page = 1;
   const { userId } = await auth();
 
   if (!userId) redirect("/sign-in");
