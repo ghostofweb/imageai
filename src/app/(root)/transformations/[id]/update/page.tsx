@@ -7,18 +7,8 @@ import { transformationTypes } from "@/constants";
 import { getUserById } from "@/lib/actions/user.actions";
 import { getImageById } from "@/lib/actions/image.actions";
 
-type PageProps = {
-  params: {
-    id: string;
-    type: TransformationTypeKey;
-  };
-  searchParams?: Record<string, string>;
-};
-
-const Page = async ({ params }: PageProps) => {
-  // No need to await params here
-  const { id } = params;
-  const { userId } = await auth();
+const Page = async ({ params: { id } }: SearchParamProps) => {
+  const { userId } =await auth();
 
   if (!userId) redirect("/sign-in");
 
