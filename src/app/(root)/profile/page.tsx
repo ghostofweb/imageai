@@ -6,13 +6,16 @@ import { Collection } from "@/components/shared/Collection";
 import Header from "@/components/shared/Header";
 import { getUserImages } from "@/lib/actions/image.actions";
 import { getUserById } from "@/lib/actions/user.actions";
+
+// Define that searchParams is a Promise.
 type PageProps = {
-  params: { id: string; type: TransformationTypeKey };
-  searchParams: { page?: string };
+  searchParams: Promise<{ page?: string }>;
 };
 
-const Profile = async ({ params, searchParams }: PageProps) => {
-  const page = Number(searchParams?.page) || 1;
+const Profile = async ({ searchParams }: PageProps) => {
+  // Unwrap the promise before using it:
+  const resolvedSearchParams = await searchParams;
+  const page = Number(resolvedSearchParams?.page) || 1;
   const { userId } = await auth();
 
   if (!userId) redirect("/sign-in");
