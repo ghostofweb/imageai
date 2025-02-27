@@ -1,3 +1,4 @@
+
 import {
   ClerkProvider,
 } from "@clerk/nextjs";
@@ -6,6 +7,7 @@ import { IBM_Plex_Sans } from "next/font/google";
 import "./globals.css";
 import { cn } from "@/lib/utils";
 import { dark } from "@clerk/themes";
+
 
 // Configure IBM Plex Sans
 const ibmPlexSans = IBM_Plex_Sans({
@@ -41,6 +43,8 @@ export default function RootLayout({
           <link rel="icon" href="/favicon.png" type="image/png" />
         </head>
         <body className={cn("font-sans antialiased text-white", ibmPlexSans.variable)}>
+    
+
           {children}
         </body>
       </html>
