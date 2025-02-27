@@ -7,15 +7,12 @@ import Header from "@/components/shared/Header";
 import { getUserImages } from "@/lib/actions/image.actions";
 import { getUserById } from "@/lib/actions/user.actions";
 
-type SearchParamValue = string | string[] | undefined;
-
-// Define the correct interface for Next.js App Router pages
-export interface PageProps {
-  params: { [key: string]: string };
-  searchParams: { [key: string]: SearchParamValue };
-}
-
-export default async function Profile({ searchParams }: PageProps) {
+// Use a minimal typing that complies with Next.js's expectations
+export default async function Profile({
+  searchParams,
+}: {
+  searchParams?: { page?: string };
+}) {
   const page = Number(searchParams?.page) || 1;
 
   // Authenticate the user
