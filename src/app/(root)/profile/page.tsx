@@ -6,10 +6,14 @@ import { Collection } from "@/components/shared/Collection";
 import Header from "@/components/shared/Header";
 import { getUserImages } from "@/lib/actions/image.actions";
 import { getUserById } from "@/lib/actions/user.actions";
+type PageProps = {
+  params: { id: string; type: TransformationTypeKey };
+  searchParams: { page?: string };
+};
 
-const Profile = async ({ searchParams }: SearchParamProps) => {
+const Profile = async ({ params, searchParams }: PageProps) => {
   const page = Number(searchParams?.page) || 1;
-  const { userId } = await auth()
+  const { userId } = await auth();
 
   if (!userId) redirect("/sign-in");
 
