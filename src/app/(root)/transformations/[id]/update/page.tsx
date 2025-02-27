@@ -7,26 +7,32 @@ import { transformationTypes } from "@/constants";
 import { getUserById } from "@/lib/actions/user.actions";
 import { getImageById } from "@/lib/actions/image.actions";
 
-const Page = async ({ params: { id } }: SearchParamProps) => {
-  const { userId } =await auth();
+interface PageProps {
+  params: {
+    id: string;
+  };
+  searchParams?: { [key: string]: string | string[] | undefined };
+}
 
+const Page = async ({ params: { id } }: PageProps) => {
+  const { userId } = await auth();
   if (!userId) redirect("/sign-in");
 
   const user = await getUserById(userId);
   const image = await getImageById(id);
 
+  // Use the image's transformation type to grab the corresponding transformation details
   const transformation =
-    transformationTypes[image.transformationType as TransformationTypeKey];
+    transformationTypes[image.transformationType as keyof typeof transformationTypes];
 
   return (
     <>
       <Header title={transformation.title} subtitle={transformation.subTitle} />
-
       <section className="mt-10">
         <TransformationForm
           action="Update"
           userId={user._id}
-          type={image.transformationType as TransformationTypeKey}
+          type={image.transformationType as keyof typeof transformationTypes}
           creditBalance={user.creditBalance}
           config={image.config}
           data={image}
