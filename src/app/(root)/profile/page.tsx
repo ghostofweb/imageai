@@ -10,14 +10,13 @@ import { getUserById } from "@/lib/actions/user.actions";
 
 // Define the props interface for the Profile page
 interface ProfileProps {
-  searchParams: Promise<{ [key: string]: string }>;
+  searchParams: { [key: string]: string | string[] | undefined };
+  params: { id: string };
 }
 
 // Use NextPage to type the component with the defined props
-const Profile: NextPage<ProfileProps> = async ({ searchParams }) => {
-  // Await searchParams to get the resolved query parameters
-  const params = await searchParams;
-  const page = Number(params?.page) || 1; // Safely extract the 'page' parameter
+const Profile: NextPage<ProfileProps> = async ({ searchParams, params }) => {
+  const page = Number(searchParams?.page) || 1; // Safely extract the 'page' parameter
 
   // Authenticate the user
   const { userId } = await auth();
