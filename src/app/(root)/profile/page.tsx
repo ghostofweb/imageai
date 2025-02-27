@@ -7,15 +7,11 @@ import Header from "@/components/shared/Header";
 import { getUserImages } from "@/lib/actions/image.actions";
 import { getUserById } from "@/lib/actions/user.actions";
 
-// Define the interface for the page component props correctly
-interface SearchParams {
-  page?: string;
-}
-
+// This type matches what Next.js App Router expects for a page
 export default async function Profile({
   searchParams,
 }: {
-  searchParams: SearchParams;
+  searchParams: { [key: string]: string | string[] | undefined };
 }) {
   const page = Number(searchParams?.page) || 1; // Safely extract the 'page' parameter
 
