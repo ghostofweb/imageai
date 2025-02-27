@@ -19,7 +19,7 @@ export default async function Profile({ searchParams }: PageProps) {
   const page = Number(searchParams?.page) || 1;
 
   // Authenticate the user
-  const { userId } = auth();
+  const { userId } = await auth();
   if (!userId) redirect("/sign-in");
 
   // Fetch user and image data
