@@ -7,11 +7,21 @@ import Header from "@/components/shared/Header";
 import { getUserImages } from "@/lib/actions/image.actions";
 import { getUserById } from "@/lib/actions/user.actions";
 
-// Adapted Next.js approach
-export default async function Profile(props: any) {
-  // Extract searchParams safely with type assertion
-  const searchParams = props.searchParams as { page?: string };
+// Update types so both params and searchParams are plain objects
+type PageProps = {
+  params: { id: string; type: TransformationTypeKey };
+  searchParams: { page?: string };
+};
+
+export default async function TransformationUpdatePage({
+  params,
+  searchParams,
+}: PageProps) {
+  // Extract and convert the page number
   const page = Number(searchParams?.page) || 1;
+
+  // If you need params (id/type), you can do:
+  // const { id, type } = params;
 
   // Authenticate the user
   const { userId } = await auth();
@@ -23,7 +33,7 @@ export default async function Profile(props: any) {
 
   return (
     <>
-      <Header title="Profile" />
+      <Header title="Transformation Update" />
 
       <section className="profile">
         <div className="profile-balance">
