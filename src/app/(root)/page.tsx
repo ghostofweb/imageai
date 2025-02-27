@@ -1,13 +1,27 @@
 export const dynamic = 'force-dynamic';
-import { Collection } from '@/components/shared/Collection'
-import { navLinks } from '@/constants'
-import { getAllImages } from '@/lib/actions/image.actions'
-import Image from 'next/image'
-import Link from 'next/link'
-import React from 'react'
+import { Collection } from '@/components/shared/Collection';
+import { navLinks } from '@/constants';
+import { getAllImages } from '@/lib/actions/image.actions';
+import Image from 'next/image';
+import Link from 'next/link';
+import React from 'react';
 
-const Home = async ({ searchParams }: SearchParamProps) => {
-  // Await the searchParams promise first
+// Define the interface to match what Next.js gives you
+export interface PageProps {
+  params: {
+    // If you have dynamic segments, they go here
+    [key: string]: string;
+  };
+  searchParams: {
+    query?: string;
+    page?: string;
+    // You can add more query params if needed
+    [key: string]: string | undefined;
+  };
+}
+
+const Home = async ({ searchParams }: PageProps) => {
+  // No need to await searchParams because it's a plain object now
   const params = await searchParams;
   const page = Number(params?.page) || 1;
   const searchQuery = (params?.query as string) || '';
@@ -47,6 +61,7 @@ const Home = async ({ searchParams }: SearchParamProps) => {
         />
       </section>
     </>
-  )
-}
-export default Home
+  );
+};
+
+export default Home;
