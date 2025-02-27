@@ -1,4 +1,5 @@
 export const dynamic = 'force-dynamic';
+
 import { Collection } from '@/components/shared/Collection';
 import { navLinks } from '@/constants';
 import { getAllImages } from '@/lib/actions/image.actions';
@@ -6,25 +7,22 @@ import Image from 'next/image';
 import Link from 'next/link';
 import React from 'react';
 
-// Define the interface to match what Next.js gives you
-export interface PageProps {
-  params: {
-    // If you have dynamic segments, they go here
-    [key: string]: string;
-  };
-  searchParams: {
-    query?: string;
-    page?: string;
-    // You can add more query params if needed
-    [key: string]: string | undefined;
-  };
+// Define a helper type so the values can be either plain or promises.
+type Awaitable<T> = T | Promise<T>;
+
+interface Props {
+  params: Awaitable<{ [key: string]: string }>;
+  searchParams: Awaitable<{ query?: string; page?: string }>;
 }
 
-const Home = async ({ searchParams }: PageProps) => {
-  // No need to await searchParams because it's a plain object now
-  const params = await searchParams;
-  const page = Number(params?.page) || 1;
-  const searchQuery = (params?.query as string) || '';
+const Home = async ({ params, searchParams }: Props) => {
+  // Use Promise.resolve to handle both promise and plain object cases
+  const resolvedSearchParams = await Promise.resolve(searchParams);
+  const page = Number(resolvedSearchParams.page) || 1;
+  const searchQuery = resolvedSearchParams.query || '';
+
+  // If you need params later, you can do the same:
+  // const resolvedParams = await Promise.resolve(params);
 
   const images = await getAllImages({ page, searchQuery });
 
@@ -53,7 +51,7 @@ const Home = async ({ searchParams }: PageProps) => {
       </section>
 
       <section className="sm:mt-12">
-        <Collection 
+        <Collection
           hasSearch={true}
           images={images?.data}
           totalPages={images?.totalPage}
