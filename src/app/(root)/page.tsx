@@ -1,20 +1,16 @@
 export const dynamic = 'force-dynamic';
+import { Collection } from '@/components/shared/Collection'
+import { navLinks } from '@/constants'
+import { getAllImages } from '@/lib/actions/image.actions'
+import Image from 'next/image'
+import Link from 'next/link'
+import React from 'react'
 
-import { Collection } from '@/components/shared/Collection';
-import { navLinks } from '@/constants';
-import { getAllImages } from '@/lib/actions/image.actions';
-import Image from 'next/image';
-import Link from 'next/link';
-import React from 'react';
-import { PageProps } from '../../../.next/types/app/layout';
-
-const Home = async ({ params, searchParams }: PageProps) => {
-  // Await both, even if you don't use params immediately.
-  const resolvedParams = await params; // If needed
-  const resolvedSearchParams = await searchParams;
-
-  const page = Number(resolvedSearchParams?.page) || 1;
-  const searchQuery = (resolvedSearchParams?.query as string) || '';
+const Home = async ({ searchParams }: SearchParamProps) => {
+  // Await the searchParams promise first
+  const params = await searchParams;
+  const page = Number(params?.page) || 1;
+  const searchQuery = (params?.query as string) || '';
 
   const images = await getAllImages({ page, searchQuery });
 
@@ -51,7 +47,6 @@ const Home = async ({ params, searchParams }: PageProps) => {
         />
       </section>
     </>
-  );
-};
-
-export default Home;
+  )
+}
+export default Home
