@@ -7,21 +7,15 @@ import Header from "@/components/shared/Header";
 import { getUserImages } from "@/lib/actions/image.actions";
 import { getUserById } from "@/lib/actions/user.actions";
 
-// Update types so both params and searchParams are plain objects
+// Using Record<string, never> for an empty params object.
 type PageProps = {
-  params: { id: string; type: TransformationTypeKey };
+  params: Record<string, never>;
   searchParams: { page?: string };
 };
 
-export default async function TransformationUpdatePage({
-  params,
-  searchParams,
-}: PageProps) {
+export default async function ProfilePage({ searchParams }: PageProps) {
   // Extract and convert the page number
   const page = Number(searchParams?.page) || 1;
-
-  // If you need params (id/type), you can do:
-  // const { id, type } = params;
 
   // Authenticate the user
   const { userId } = await auth();
@@ -33,7 +27,7 @@ export default async function TransformationUpdatePage({
 
   return (
     <>
-      <Header title="Transformation Update" />
+      <Header title="Profile" />
 
       <section className="profile">
         <div className="profile-balance">
