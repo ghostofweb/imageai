@@ -7,21 +7,13 @@ import { transformationTypes } from "@/constants";
 import { getUserById } from "@/lib/actions/user.actions";
 import { getImageById } from "@/lib/actions/image.actions";
 
-interface PageProps {
-  params: {
-    id: string;
-  };
-  searchParams?: { [key: string]: string | string[] | undefined };
-}
-
-const Page = async ({ params: { id } }: PageProps) => {
+export default async function Page({ params }: { params: { id: string } }) {
   const { userId } = await auth();
   if (!userId) redirect("/sign-in");
 
   const user = await getUserById(userId);
-  const image = await getImageById(id);
+  const image = await getImageById(params.id);
 
-  // Use the image's transformation type to grab the corresponding transformation details
   const transformation =
     transformationTypes[image.transformationType as keyof typeof transformationTypes];
 
@@ -40,6 +32,4 @@ const Page = async ({ params: { id } }: PageProps) => {
       </section>
     </>
   );
-};
-
-export default Page;
+}
