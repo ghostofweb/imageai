@@ -10,10 +10,9 @@ import { DeleteConfirmation } from "@/components/shared/DeleteConfirmation";
 import { useUser } from "@clerk/nextjs";
 import { getImageById } from "@/lib/actions/image.actions";
 
+// With Next.js 13.4+, params is now a Promise.
 interface SearchParamProps {
-  params: {
-    id: string;
-  };
+  params: Promise<{ id: string }>;
 }
 
 interface ImageType {
@@ -25,11 +24,19 @@ interface ImageType {
   aspectRatio?: string;
   secureURL: string;
   config: any;
-  author: { clerkId: string };
+  author: {
+    _id: any; // MongoDB ObjectId
+    firstname?: string;
+    lastname?: string;
+    clerkId?: string; // Make sure this is populated!
+  };
 }
 
 export default function ImageDetails({ params }: SearchParamProps) {
-  const { id } = params;
+  // Unwrap the promise using React.use()
+  const resolvedParams = React.use(params);
+  const { id } = resolvedParams;
+
   const { user, isLoaded } = useUser();
   const [image, setImage] = useState<ImageType | null>(null);
   const [loading, setLoading] = useState(true);
@@ -58,9 +65,21 @@ export default function ImageDetails({ params }: SearchParamProps) {
     return <div>{error || "Image not found."}</div>;
   }
 
+  // Compare the logged-in user's clerk id to the image author's clerkId.
+  // Make sure populateUser includes clerkId.
+  const isOwner =
+    user && image.author && user.id === image.author.clerkId;
+
   return (
     <>
       <Header title={image.title} />
+      <p className="text-sm text-gray-500 pl-4">
+        Owned by:{" "}
+        {isOwner
+          ? "You"
+          : `${image.author.firstname || ""} ${image.author.lastname || ""}`.trim() ||
+            image.author._id.toString()}
+      </p>
 
       <section className="mt-5 flex flex-wrap gap-4">
         <div className="p-14-medium md:p-16-medium flex gap-2">
@@ -126,7 +145,8 @@ export default function ImageDetails({ params }: SearchParamProps) {
           />
         </div>
 
-        {isLoaded && user?.id === image.author.clerkId && (
+        {/* Only show update and delete options if the logged-in user is the owner */}
+        {isOwner && (
           <div className="mt-4 space-y-4">
             <Button asChild type="button" className="submit-button capitalize">
               <Link href={`/transformations/${image._id}/update`}>

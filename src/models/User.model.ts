@@ -23,7 +23,7 @@ const UserSchema = new Schema<IUser>(
     firstName: { type: String },
     lastName: { type: String },
     planId: { type: Number, default: 1 },
-    creditBalance: { type: Number, default: 10 },
+    creditBalance: { type: Number, default: 20 },
   },
   { timestamps: true } // Automatically adds createdAt & updatedAt
 );

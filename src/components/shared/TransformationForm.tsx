@@ -166,7 +166,7 @@ const TransformationForm = ({
         [fieldName === 'prompt' ? 'prompt' : 'to']:value
       }
     }))
-  },1000)
+  },1000)()
   return onChangeField(value)
   }
   // TODO: Implement the updateCredits Handler
@@ -209,7 +209,7 @@ useEffect(()=>{
               render={({ field }) => (
                 <Select onValueChange={(value)=>{
                   onSelectFieldHandler(value,field.onChange)
-                }}>
+                }} value={field.value}>
                   <SelectTrigger className="w-[180px]">
                     <SelectValue placeholder="Select Size" />
                   </SelectTrigger>
@@ -233,7 +233,7 @@ useEffect(()=>{
                 type === 'remove' ? 'Object to Remove' : "Object to Recolor"
               }
               className='w-full'
-              render={(({field})=>(
+              render={({field})=>(
                 <Input 
                 value={field.value}
                 className='input-field'
@@ -242,7 +242,7 @@ useEffect(()=>{
                 )}
 
                 />
-              ))}
+              )}
               />
               {type === 'recolor' && (
             <CustomField
