@@ -1,3 +1,4 @@
+import { type NextPage } from 'next';
 import { auth } from "@clerk/nextjs/server";
 import Image from "next/image";
 import { redirect } from "next/navigation";
@@ -7,18 +8,22 @@ import Header from "@/components/shared/Header";
 import { getUserImages } from "@/lib/actions/image.actions";
 import { getUserById } from "@/lib/actions/user.actions";
 
-// Updated type: searchParams is now just an object.
-type PageProps = {
-  searchParams: { page?: string };
-};
+// Define the props interface for the Profile page
+interface ProfileProps {
+  searchParams: Promise<{ [key: string]: string }>;
+}
 
-const Profile = async ({ searchParams }: PageProps) => {
-  // No need to await searchParams now.
-  const page = Number(searchParams?.page) || 1;
+// Use NextPage to type the component with the defined props
+const Profile: NextPage<ProfileProps> = async ({ searchParams }) => {
+  // Await searchParams to get the resolved query parameters
+  const params = await searchParams;
+  const page = Number(params?.page) || 1; // Safely extract the 'page' parameter
+
+  // Authenticate the user
   const { userId } = await auth();
-
   if (!userId) redirect("/sign-in");
 
+  // Fetch user and image data
   const user = await getUserById(userId);
   const images = await getUserImages({ page, userId: user._id });
 
