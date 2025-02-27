@@ -7,12 +7,12 @@ import { transformationTypes } from "@/constants";
 import { getUserById } from "@/lib/actions/user.actions";
 import { getImageById } from "@/lib/actions/image.actions";
 
-export default async function Page({ params }: { params: { id: string } }) {
+export default async function Page({ params: { id } }: { params: { id: string } }) {
   const { userId } = await auth();
   if (!userId) redirect("/sign-in");
 
   const user = await getUserById(userId);
-  const image = await getImageById(params.id);
+  const image = await getImageById(id);
 
   const transformation =
     transformationTypes[image.transformationType as keyof typeof transformationTypes];
