@@ -7,12 +7,10 @@ import Header from "@/components/shared/Header";
 import { getUserImages } from "@/lib/actions/image.actions";
 import { getUserById } from "@/lib/actions/user.actions";
 
-// Use a minimal typing that complies with Next.js's expectations
-export default async function Profile({
-  searchParams,
-}: {
-  searchParams?: { page?: string };
-}) {
+// Adapted Next.js approach
+export default async function Profile(props: any) {
+  // Extract searchParams safely with type assertion
+  const searchParams = props.searchParams as { page?: string };
   const page = Number(searchParams?.page) || 1;
 
   // Authenticate the user
