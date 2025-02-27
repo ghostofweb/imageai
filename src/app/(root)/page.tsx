@@ -6,16 +6,11 @@ import { getAllImages } from '@/lib/actions/image.actions';
 import Image from 'next/image';
 import Link from 'next/link';
 import React from 'react';
+import { PageProps } from '../../../.next/types/app/layout';
 
-// Define a helper type so the values can be either plain or promises.
-type Awaitable<T> = T | Promise<T>;
 
-interface Props {
-  params: Awaitable<{ [key: string]: string }>;
-  searchParams: Awaitable<{ query?: string; page?: string }>;
-}
 
-const Home = async ({ params, searchParams }: Props) => {
+const Home = async ({ params, searchParams }: PageProps) => {
   // Use Promise.resolve to handle both promise and plain object cases
   const resolvedSearchParams = await Promise.resolve(searchParams);
   const page = Number(resolvedSearchParams.page) || 1;
