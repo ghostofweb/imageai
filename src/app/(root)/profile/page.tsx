@@ -1,4 +1,3 @@
-import { type NextPage } from 'next';
 import { auth } from "@clerk/nextjs/server";
 import Image from "next/image";
 import { redirect } from "next/navigation";
@@ -8,14 +7,16 @@ import Header from "@/components/shared/Header";
 import { getUserImages } from "@/lib/actions/image.actions";
 import { getUserById } from "@/lib/actions/user.actions";
 
-// Define the props interface for the Profile page
-interface ProfileProps {
-  searchParams: { [key: string]: string | string[] | undefined };
-  params: { id: string };
+// Define the interface for the page component props correctly
+interface SearchParams {
+  page?: string;
 }
 
-// Use NextPage to type the component with the defined props
-const Profile: NextPage<ProfileProps> = async ({ searchParams, params }) => {
+export default async function Profile({
+  searchParams,
+}: {
+  searchParams: SearchParams;
+}) {
   const page = Number(searchParams?.page) || 1; // Safely extract the 'page' parameter
 
   // Authenticate the user
@@ -69,6 +70,4 @@ const Profile: NextPage<ProfileProps> = async ({ searchParams, params }) => {
       </section>
     </>
   );
-};
-
-export default Profile;
+}
