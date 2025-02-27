@@ -9,7 +9,6 @@ import React from 'react';
 import { PageProps } from '../../../.next/types/app/layout';
 
 
-
 const Home = async ({ params, searchParams }: PageProps) => {
   // Use Promise.resolve to handle both promise and plain object cases
   const resolvedSearchParams = await Promise.resolve(searchParams);
