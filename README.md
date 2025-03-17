@@ -1,37 +1,55 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# ImageAI 🖼️🤖
 
-## Getting Started
+**AI-Powered Image Editing with Cloudinary & TypeScript**
 
-First, run the development server:
+## 🚀 Overview
+ImageAI is an advanced AI-powered image editing platform that utilizes **Cloudinary AI** for seamless image transformations. Users can upload images and apply modifications using AI-enhanced tools, built with **TypeScript** for better type safety and scalability.
+
+🎨 **AI Image Processing** | ☁️ **Cloudinary Integration** | ⚡ **Fast & Responsive** | 🛡️ **TypeScript for Stability**
+
+## 🛠 Tech Stack
+- **Frontend:** Next.js, React, TypeScript, Tailwind CSS
+- **Backend:** Cloudinary AI, MongoDB, Mongoose
+- **State Management:** React Hook Form
+- **Authentication:** Clerk Auth
+- **UI Components:** Radix UI, Lucide React, Framer Motion
+- **Other Libraries:** Cloudinary SDK, Next.js Progress Bar, Zod Validation
+
+## 🌍 Features
+✅ **AI-Powered Image Editing** using Cloudinary AI  
+✅ **User Authentication** via Clerk Auth  
+✅ **Fast & Responsive UI** with Tailwind CSS  
+✅ **Real-time Progress Bar** for better UX  
+✅ **Form Validation** with Zod & React Hook Form  
+✅ **Seamless Database Integration** with MongoDB & Mongoose  
+✅ **Type-Safe Development** with TypeScript  
+
+## 📸 How It Works
+1. **Upload an Image** – Select an image from your device.
+2. **Choose Enhancements** – Apply AI-powered modifications (resize, filters, transformations, etc.).
+3. **Preview & Save** – View changes and download the final image.
+
+## 🔧 Installation & Setup
+Clone the repository and install dependencies:
 
 ```bash
+# Clone the repo
+git clone https://github.com/your-username/imageai.git
+cd imageai
+
+# Install dependencies
+npm install
+
+# Create a .env file and add Cloudinary & Clerk credentials
+
+# Run development server
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 🌎 Live Website
+[Visit ImageAI](https://imageai-bay.vercel.app/)
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+---
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
-# imageai
+📸 **Transform your images with AI – Try ImageAI today!** 🚀
+****
